@@ -3,6 +3,8 @@ create table posts (
   id uuid default gen_random_uuid() primary key,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   title text not null,
+  category text not null,
+  content text,
   image_url text,
   media_url text, -- For Video/Audio
   is_trending boolean default false,
