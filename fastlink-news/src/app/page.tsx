@@ -48,6 +48,41 @@ export default async function Home() {
                 </article>
               ))}
             </div>
+
+          </section>
+
+          {/* The Nation Section */}
+          <section>
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-1.5 h-6 bg-emerald-600 rounded-sm"></div>
+              <h2 className="text-2xl font-black text-emerald-700 uppercase tracking-tight">The Nation</h2>
+              <div className="h-px flex-1 bg-gray-200"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {latest.filter(n => n.category === 'The Nation').slice(0, 4).map(news => (
+                <article key={news.id} className="group cursor-pointer flex flex-col h-full">
+                  <div className="overflow-hidden rounded-xl shadow-sm mb-4 h-52 relative">
+                    <img src={news.image} alt={news.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl"></div>
+                  </div>
+                  <h4 className="font-bold text-lg leading-snug group-hover:text-emerald-600 transition-colors mb-2 flex-grow">{news.title}</h4>
+                  <p className="text-xs text-gray-400">{news.date}</p>
+                </article>
+              ))}
+            </div>
+            <div className="mt-6 flex flex-col gap-4">
+              {latest.filter(n => n.category === 'The Nation').slice(4, 7).map(news => (
+                <article key={news.id} className="group cursor-pointer flex gap-4 items-center">
+                  <div className="w-20 h-20 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 relative">
+                    <img src={news.image} alt={news.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm leading-snug group-hover:text-emerald-600 transition-colors">{news.title}</h4>
+                    <p className="text-xs text-gray-400 mt-1">{news.date}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </section>
 
           {/* Business Section */}
@@ -111,6 +146,33 @@ export default async function Home() {
               ))}
             </div>
           </section>
+
+          {/* More News Section (Sport, Entertainment, Climate, Technology, etc) */}
+          <section>
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-1.5 h-6 bg-gray-600 rounded-sm"></div>
+              <h2 className="text-2xl font-black text-gray-800 uppercase tracking-tight">More News</h2>
+              <div className="h-px flex-1 bg-gray-200"></div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
+              {latest
+                .filter(n => !['Business', 'Health', 'International', 'The Nation'].includes(n.category))
+                .slice(0, 6)
+                .map(news => (
+                  <article key={news.id} className="group cursor-pointer flex gap-4 items-start">
+                    <div className="w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 relative">
+                      <img src={news.image} alt={news.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-bold uppercase text-gray-400 mb-1 block">{news.category}</span>
+                      <h4 className="font-bold text-md leading-snug group-hover:text-primary transition-colors">{news.title}</h4>
+                      <p className="text-xs text-gray-400 mt-1">{news.date}</p>
+                    </div>
+                  </article>
+                ))}
+            </div>
+          </section>
+
         </main>
 
         <div className="lg:col-span-4 space-y-8">

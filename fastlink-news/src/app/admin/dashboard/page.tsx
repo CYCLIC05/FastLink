@@ -57,46 +57,31 @@ export default function AdminDashboard() {
     const deleteArticle = async (id: string) => {
         if (!confirm('Are you sure you want to delete this article?')) return;
 
+        // Prompt for password again for extra security since this is a destructive action
+        // and we aren't using real auth sessions
+        const password = prompt("Please confirm admin password to delete:");
+        if (!password) return;
+
         try {
-            // 1. Get the article details first to find file paths
-            const { data: article, error: fetchError } = await supabase
-                .from('posts')
-                .select('image_url, media_url')
-                .eq('id', id)
-                .single();
+            const response = await fetch('/api/admin/delete-article', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, password })
+            });
 
-            if (fetchError) throw fetchError;
+            const data = await response.json();
 
-            // 2. Delete Image
-            if (article?.image_url) {
-                const imagePath = article.image_url.split('/').pop();
-                if (imagePath) {
-                    await supabase.storage.from('article-images').remove([imagePath]);
-                }
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to delete');
             }
 
-            // 3. Delete Media
-            if (article?.media_url) {
-                const mediaPath = article.media_url.split('/').pop();
-                if (mediaPath) {
-                    await supabase.storage.from('article-media').remove([mediaPath]);
-                }
-            }
-
-            // 4. Delete Database Record
-            const { error: deleteError } = await supabase
-                .from('posts')
-                .delete()
-                .eq('id', id);
-
-            if (deleteError) throw deleteError;
-
-            // 5. Update UI
+            // Update UI
             setArticles(articles.filter(a => a.id !== id));
+            alert("Article deleted successfully");
 
-        } catch (err) {
+        } catch (err: any) {
             console.error("Error deleting article:", err);
-            alert("Failed to delete article. Check console for details.");
+            alert(`Failed to delete article: ${err.message}`);
         }
     };
 
