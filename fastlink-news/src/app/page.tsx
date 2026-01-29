@@ -2,9 +2,18 @@ import { fetchFeaturedNews, fetchLatestNews } from "@/lib/data";
 import HeroSection from "@/components/HeroSection";
 import Sidebar from "@/components/Sidebar";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const featured = await fetchFeaturedNews();
   const latest = await fetchLatestNews();
+
+  console.log('DEBUG: Latest News Count:', latest.length);
+  const nationCount = latest.filter(n => n.category === 'The Nation').length;
+  console.log('DEBUG: The Nation Count:', nationCount);
+  if (nationCount > 0) {
+    console.log('DEBUG: First Nation Title:', latest.find(n => n.category === 'The Nation')?.title);
+  }
 
   return (
     <div className="min-h-screen pb-16 bg-gray-50/30">
@@ -23,7 +32,7 @@ export default async function Home() {
             <div className="flex flex-col gap-10">
               {latest.slice(0, 6).map(news => (
                 <article key={news.id} className="group flex flex-col md:flex-row gap-6 items-start">
-                  <div className="w-full md:w-64 h-56 md:h-44 flex-shrink-0 overflow-hidden rounded-xl bg-gray-200 shadow-sm relative">
+                  <div className="w-full md:w-64 aspect-video md:h-44 flex-shrink-0 overflow-hidden rounded-xl bg-gray-200 shadow-sm relative">
                     <img src={news.image} alt={news.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 will-change-transform" />
                     <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl"></div>
                   </div>
@@ -59,9 +68,9 @@ export default async function Home() {
               <div className="h-px flex-1 bg-gray-200"></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {latest.filter(n => n.category === 'The Nation').slice(0, 4).map(news => (
+              {latest.filter(n => n.category.trim() === 'The Nation').slice(0, 4).map(news => (
                 <article key={news.id} className="group cursor-pointer flex flex-col h-full">
-                  <div className="overflow-hidden rounded-xl shadow-sm mb-4 h-52 relative">
+                  <div className="overflow-hidden rounded-xl shadow-sm mb-4 aspect-video relative">
                     <img src={news.image} alt={news.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl"></div>
                   </div>
@@ -95,7 +104,7 @@ export default async function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {latest.filter(n => n.category === 'Business').slice(0, 4).map(news => (
                 <article key={news.id} className="group cursor-pointer flex flex-col h-full">
-                  <div className="overflow-hidden rounded-xl shadow-sm mb-4 h-52 relative">
+                  <div className="overflow-hidden rounded-xl shadow-sm mb-4 aspect-video relative">
                     <img src={news.image} alt={news.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl"></div>
                   </div>
@@ -115,11 +124,32 @@ export default async function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {latest.filter(n => n.category === 'Health').slice(0, 2).map(news => (
                 <article key={news.id} className="group cursor-pointer flex flex-col h-full">
-                  <div className="overflow-hidden rounded-xl shadow-sm mb-4 h-48 relative">
+                  <div className="overflow-hidden rounded-xl shadow-sm mb-4 aspect-video relative">
                     <img src={news.image} alt={news.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl"></div>
                   </div>
                   <h4 className="font-bold text-lg leading-snug group-hover:text-blue-600 transition-colors mb-2">{news.title}</h4>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* Lifestyle Section */}
+          <section>
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-1.5 h-6 bg-pink-600 rounded-sm"></div>
+              <h2 className="text-2xl font-black text-pink-700 uppercase tracking-tight">Lifestyle</h2>
+              <div className="h-px flex-1 bg-gray-200"></div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              {latest.filter(n => n.category === 'Lifestyle').slice(0, 4).map(news => (
+                <article key={news.id} className="group cursor-pointer flex flex-col h-full">
+                  <div className="overflow-hidden rounded-xl shadow-sm mb-4 aspect-video relative">
+                    <img src={news.image} alt={news.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl"></div>
+                  </div>
+                  <h4 className="font-bold text-lg leading-snug group-hover:text-pink-600 transition-colors mb-2 flex-grow">{news.title}</h4>
+                  <p className="text-xs text-gray-400">{news.date}</p>
                 </article>
               ))}
             </div>
@@ -156,7 +186,7 @@ export default async function Home() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
               {latest
-                .filter(n => !['Business', 'Health', 'International', 'The Nation'].includes(n.category))
+                .filter(n => !['Business', 'Health', 'International', 'The Nation', 'Lifestyle'].includes(n.category))
                 .slice(0, 6)
                 .map(news => (
                   <article key={news.id} className="group cursor-pointer flex gap-4 items-start">
@@ -179,6 +209,7 @@ export default async function Home() {
           <Sidebar />
         </div>
       </div>
+
     </div>
   );
 }

@@ -15,7 +15,7 @@ export default function HeroSection({ featuredNews }: HeroSectionProps) {
         <section className="container mx-auto px-4 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:h-[550px]">
                 {/* Main Hero Card */}
-                <div className="lg:col-span-8 relative group overflow-hidden rounded-2xl shadow-xl h-[400px] lg:h-full">
+                <div className="lg:col-span-8 relative group overflow-hidden rounded-2xl shadow-xl aspect-[4/3] lg:aspect-auto lg:h-full">
                     <Link href={`/news/${mainStory.id}`} className="block h-full w-full">
                         <img
                             src={mainStory.image}
@@ -39,7 +39,7 @@ export default function HeroSection({ featuredNews }: HeroSectionProps) {
                 {/* Sub Stories Grid */}
                 <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 lg:grid-rows-4 gap-4 h-auto lg:h-full">
                     {subStories.map((story) => (
-                        <div key={story.id} className="relative group overflow-hidden rounded-xl shadow-md h-48 lg:h-auto border border-gray-100/10">
+                        <div key={story.id} className="relative group overflow-hidden rounded-xl shadow-md aspect-video lg:aspect-auto lg:h-auto border border-gray-100/10">
                             <Link href={`/news/${story.id}`} className="block h-full w-full">
                                 <img
                                     src={story.image}
