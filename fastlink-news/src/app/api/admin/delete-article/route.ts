@@ -27,15 +27,22 @@ export async function POST(request: NextRequest) {
         });
 
         // 3. Get file paths before deleting record
-        const { data: article, error: fetchError } = await supabase
+        // 3. Get file paths before deleting record
+        const { data: articles, error: fetchError } = await supabase
             .from('posts')
             .select('image_url, media_url')
             .eq('id', id)
-            .single();
+            .limit(1);
 
         if (fetchError) {
             return NextResponse.json({ error: fetchError.message }, { status: 400 });
         }
+
+        if (!articles || articles.length === 0) {
+            return NextResponse.json({ error: "Article not found" }, { status: 404 });
+        }
+
+        const article = articles[0];
 
         // 4. Delete Files
         if (article?.image_url) {
