@@ -10,6 +10,8 @@ export interface NewsItem {
     excerpt?: string;
     content?: string;
     isFeatured?: boolean;
+    views: number;
+    tags: string[];
 }
 
 // Helper to format date
@@ -41,7 +43,9 @@ export const fetchLatestNews = async (): Promise<NewsItem[]> => {
         date: formatDate(post.created_at),
         content: post.content,
         excerpt: post.content ? (post.content.length > 100 ? post.content.substring(0, 100) + '...' : post.content) : '',
-        isFeatured: false
+        isFeatured: false,
+        views: post.views || 0,
+        tags: post.tags || []
     }));
 };
 
@@ -68,7 +72,9 @@ export const fetchNewsById = async (id: string): Promise<NewsItem | null> => {
         isFeatured: false,
         excerpt: data.content
             ? (data.content.length > 150 ? data.content.substring(0, 150) + '...' : data.content)
-            : ''
+            : '',
+        views: data.views || 0,
+        tags: data.tags || []
     };
 };
 
@@ -90,7 +96,9 @@ export const fetchFeaturedNews = async (): Promise<NewsItem[]> => {
         image: post.image_url || 'https://placehold.co/800x600/eee/999?text=No+Image',
         author: post.author,
         date: formatDate(post.created_at),
-        isFeatured: true
+        isFeatured: true,
+        views: post.views || 0,
+        tags: post.tags || []
     }));
 };
 
@@ -114,7 +122,9 @@ export const fetchTrendingNews = async (): Promise<NewsItem[]> => {
         date: formatDate(post.created_at),
         content: post.content,
         excerpt: '',
-        isFeatured: true
+        isFeatured: true,
+        views: post.views || 0,
+        tags: post.tags || []
     }));
 };
 
@@ -140,7 +150,9 @@ export const fetchNewsByCategory = async (category: string): Promise<NewsItem[]>
         date: formatDate(post.created_at),
         content: post.content,
         excerpt: post.content ? (post.content.length > 100 ? post.content.substring(0, 100) + '...' : post.content) : '',
-        isFeatured: post.is_trending
+        isFeatured: post.is_trending,
+        views: post.views || 0,
+        tags: post.tags || []
     }));
 };
 

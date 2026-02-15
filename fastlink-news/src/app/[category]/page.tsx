@@ -2,6 +2,9 @@ import { fetchNewsByCategory } from "@/lib/data";
 import CategoryFeed from "@/components/CategoryFeed";
 import { notFound } from "next/navigation";
 
+// Force dynamic rendering to always fetch fresh data
+export const dynamic = 'force-dynamic';
+
 // Map URL slugs to Database Categories
 const categoryMap: { [key: string]: string } = {
     'business': 'Business',

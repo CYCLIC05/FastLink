@@ -1,0 +1,130 @@
+/* Print-specific styles */
+@media print {
+    /* Hide non-essential elements */
+    header,
+    nav,
+    aside,
+    footer,
+    .no-print,
+    button,
+    [role="navigation"],
+    [role="complementary"] {
+        display: none !important;
+    }
+
+    /* Show only main content */
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+
+    /* Optimize article content */
+    article {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Article header */
+    article header {
+        display: block !important;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #000;
+    }
+
+    article h1 {
+        font-size: 24pt !important;
+        font-weight: bold !important;
+        margin-bottom: 0.5rem !important;
+        color: black !important;
+    }
+
+    /* Article metadata */
+    .article-meta {
+        font-size: 10pt;
+        color: #555;
+        margin-bottom: 1rem;
+    }
+
+    /* Images */
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        page-break-inside: avoid;
+        display: block;
+        margin: 1rem 0;
+    }
+
+    /* Article content */
+    article div[class*="prose"] {
+        max-width: 100% !important;
+        font-size: 11pt;
+        line-height: 1.6;
+    }
+
+    article p {
+        margin-bottom: 0.75rem;
+        text-align: justify;
+        orphans: 3;
+        widows: 3;
+    }
+
+    /* Hide interactive elements */
+    .share-button,
+    .view-counter,
+    .related-posts,
+    .comment-section,
+    [class*="slideshow"],
+    [class*="carousel"] {
+        display: none !important;
+    }
+
+    /* Page breaks */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+
+    /* Links */
+    a {
+        color: black !important;
+        text-decoration: none !important;
+    }
+
+    a[href]:after {
+        content: "" !important;
+    }
+
+    /* Remove shadows and borders */
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    /* Footer with URL */
+    @page {
+        margin: 2cm;
+    }
+
+    /* Add print header with site info */
+    body::before {
+        content: "FastlinkNewsAfrica - Printed: " attr(data-print-date);
+        display: block;
+        text-align: center;
+        font-size: 9pt;
+        color: #666;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #ccc;
+    }
+}
+
+/* Print preview optimization */
+@media screen {
+    .print-only {
+        display: none;
+    }
+}
