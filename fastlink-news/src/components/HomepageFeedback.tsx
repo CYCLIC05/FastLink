@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 
 export default function HomepageFeedback() {
-    const [email, setEmail] = useState('');
+    // const [email, setEmail] = useState(''); // Removed email state
     const [message, setMessage] = useState('');
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
@@ -16,7 +16,7 @@ export default function HomepageFeedback() {
         // For now, we'll just simulate a success after a delay
         setTimeout(() => {
             setStatus('success');
-            setEmail('');
+            // setEmail(''); // Removed email reset
             setMessage('');
             setTimeout(() => setStatus('idle'), 3000);
         }, 1500);
@@ -42,19 +42,8 @@ export default function HomepageFeedback() {
                     </div>
                 ) : (
                     <form onSubmit={handleSubmit} className="space-y-4 text-left">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input
-                                type="email"
-                                placeholder="Your Email"
-                                required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all backdrop-blur-sm"
-                            />
-                            <div className="relative">
-                                {/* Only one input/button needed really if it's just "Leave a reply" like a newsletter, 
-                                    but requirement said "reply can be made", implying a form */}
-                            </div>
+                        <div className="mb-4">
+                            {/* Email field removed */}
                         </div>
                         <textarea
                             placeholder="Your Message..."

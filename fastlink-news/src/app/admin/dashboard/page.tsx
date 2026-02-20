@@ -57,16 +57,11 @@ export default function AdminDashboard() {
     const deleteArticle = async (id: string) => {
         if (!confirm('Are you sure you want to delete this article?')) return;
 
-        // Prompt for password again for extra security since this is a destructive action
-        // and we aren't using real auth sessions
-        const password = prompt("Please confirm admin password to delete:");
-        if (!password) return;
-
         try {
             const response = await fetch('/api/admin/delete-article', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, password })
+                body: JSON.stringify({ id })
             });
 
             const data = await response.json();

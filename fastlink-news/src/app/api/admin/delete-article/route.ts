@@ -3,12 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
     try {
-        const { id, password } = await request.json();
-
-        // 1. Verify Password
-        if (password !== 'fastlinknews.ng') {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-        }
+        const { id } = await request.json();
 
         // 2. Initialize Service Role Client (Bypasses RLS)
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;

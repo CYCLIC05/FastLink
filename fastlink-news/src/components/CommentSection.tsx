@@ -16,7 +16,6 @@ export default function CommentSection({ postId }: { postId: string }) {
     const [submitting, setSubmitting] = useState(false);
     const [formData, setFormData] = useState({
         userName: '',
-        userEmail: '',
         content: ''
     });
     const [error, setError] = useState('');
@@ -53,7 +52,6 @@ export default function CommentSection({ postId }: { postId: string }) {
                 body: JSON.stringify({
                     postId,
                     userName: formData.userName,
-                    userEmail: formData.userEmail,
                     content: formData.content
                 })
             });
@@ -66,7 +64,7 @@ export default function CommentSection({ postId }: { postId: string }) {
             setComments([data.comment, ...comments]);
 
             // Reset form
-            setFormData({ userName: '', userEmail: '', content: '' });
+            setFormData({ userName: '', content: '' });
             setSuccess('Comment posted successfully!');
 
         } catch (err) {
@@ -89,29 +87,16 @@ export default function CommentSection({ postId }: { postId: string }) {
                 {error && <div className="mb-4 text-red-600 bg-red-50 p-3 rounded text-sm">{error}</div>}
                 {success && <div className="mb-4 text-green-600 bg-green-50 p-3 rounded text-sm">{success}</div>}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-1">Name *</label>
-                        <input
-                            type="text"
-                            id="name"
-                            required
-                            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-                            value={formData.userName}
-                            onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1">Email * <span className="text-gray-400 font-normal">(will not be published)</span></label>
-                        <input
-                            type="email"
-                            id="email"
-                            required
-                            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-                            value={formData.userEmail}
-                            onChange={(e) => setFormData({ ...formData, userEmail: e.target.value })}
-                        />
-                    </div>
+                <div className="mb-4">
+                    <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-1">Name *</label>
+                    <input
+                        type="text"
+                        id="name"
+                        required
+                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                        value={formData.userName}
+                        onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
+                    />
                 </div>
                 <div className="mb-4">
                     <label htmlFor="comment" className="block text-sm font-semibold text-gray-700 mb-1">Comment *</label>

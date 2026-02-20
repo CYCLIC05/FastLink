@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { postId, userName, userEmail, content } = body;
+        const { postId, userName, content } = body;
 
         if (!postId || !userName || !content) {
             return NextResponse.json({ error: 'Missing defined fields' }, { status: 400 });
@@ -38,7 +38,6 @@ export async function POST(request: NextRequest) {
                 {
                     post_id: postId,
                     user_name: userName,
-                    user_email: userEmail,
                     content: content,
                     is_approved: true // Auto-approve for now, change to false if moderation is needed
                 }
