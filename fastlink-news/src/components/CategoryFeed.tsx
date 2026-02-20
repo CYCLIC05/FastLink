@@ -20,10 +20,10 @@ export default function CategoryFeed({ title, news }: CategoryFeedProps) {
     }
 
     return (
-        <div className="container mx-auto px-4 py-16">
-            <div className="flex items-center gap-4 mb-12">
+        <div className="container mx-auto px-4 py-8 md:py-16">
+            <div className="flex items-center gap-4 mb-8 md:mb-12">
                 <div className="w-2 h-8 bg-primary rounded-sm"></div>
-                <h1 className="text-4xl font-black text-gray-900 uppercase tracking-tight">{title}</h1>
+                <h1 className="text-2xl md:text-4xl font-black text-gray-900 uppercase tracking-tight">{title}</h1>
                 <div className="h-px flex-1 bg-gray-200"></div>
             </div>
 
