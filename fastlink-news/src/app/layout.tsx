@@ -11,9 +11,6 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-inter" }); // Usin
 export const metadata: Metadata = {
   title: "FASTLINKNEWSAFRICA",
   description: "Leading news source for Africa and the world.",
-  icons: {
-    icon: "/Fastlink Africa_v3.jpg.jpeg",
-  },
 };
 
 export default function RootLayout({
