@@ -35,11 +35,11 @@ export default function Header() {
             </div>
 
             <div className="container mx-auto flex items-center justify-between px-4 py-5 md:py-6">
-                <div className="logo relative group mr-4 md:mr-0">
-                    <Link href="/" className="flex items-center">
-                        <img src="/fat-logo.png" alt="logo" className="w-8 h-8 md:w-10 md:h-10 mr-2 object-contain" />
+                <div className="logo relative group flex-shrink-0 max-w-[60%]">
+                    <Link href="/" className="flex items-center space-x-1 whitespace-nowrap">
+                        <img src="/fat-logo.png" alt="logo" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
                         <span className="text-2xl md:text-3xl font-black tracking-tighter text-primary">FASTLINK</span>
-                        <span className="text-2xl md:text-3xl font-black tracking-tighter text-gray-900 ml-1">NEWSAFRICA</span>
+                        <span className="text-2xl md:text-3xl font-black tracking-tighter text-gray-900">NEWSAFRICA</span>
                         <span className="animate-pulse text-3xl font-black text-primary ml-0.5">_</span>
                     </Link>
                 </div>
