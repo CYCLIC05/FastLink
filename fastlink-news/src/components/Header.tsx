@@ -35,7 +35,7 @@ export default function Header() {
             </div>
 
             <div className="container mx-auto flex items-center justify-between px-4 py-5 md:py-6">
-                <div className="logo relative group">
+                <div className="logo relative group mr-4 md:mr-0">
                     <Link href="/" className="flex items-center">
                         <img src="/fat-logo.png" alt="logo" className="w-8 h-8 md:w-10 md:h-10 mr-2 object-contain" />
                         <span className="text-2xl md:text-3xl font-black tracking-tighter text-primary">FASTLINK</span>
