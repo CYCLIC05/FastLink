@@ -11,6 +11,11 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-inter" }); // Usin
 export const metadata: Metadata = {
   title: "FASTLINKNEWSAFRICA",
   description: "Leading news source for Africa and the world.",
+  icons: {
+    icon: "/fat-logo.png", // use the main logo as favicon
+    apple: "/fat-logo.png",
+    shortcut: "/fat-logo.png",
+  }
 };
 
 export default function RootLayout({
